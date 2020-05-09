@@ -11,9 +11,9 @@
  * Plugin Name:       Spotlight
  * Plugin URI:        https://karavic.com/spotlight
  * Description:       Display Widget for The Popular Posts 
- * Version:           1.0.0
+ * Version:           1.0.3
  * Requires at least: 5.2
- * Requires PHP:      7.2
+ * Requires PHP:      7.1
  * Author:            Certified Vic
  * Author URI:        https://karavic.com/certifiedvic
  * Text Domain:       spotlight
@@ -46,7 +46,7 @@ function spotlight_defer_parsing_of_js ( $url ) {
 
   add_filter( 'clean_url', 'defer_parsing_of_js', 11, 1 );
 
-  
+
 
 //  activation
 // require_once plugin_dir_path( __FILE__ ) . 'inc/dragonoid-activation.php';
