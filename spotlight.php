@@ -11,7 +11,7 @@
  * Plugin Name:       Spotlight
  * Plugin URI:        https://karavic.com/spotlight
  * Description:       Display Widget for The Popular Posts 
- * Version:           1.0.3
+ * Version:           1.0.4
  * Requires at least: 5.2
  * Requires PHP:      7.1
  * Author:            Certified Vic
@@ -23,33 +23,36 @@
 
 defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );
 
-// Load Class
-require_once(plugin_dir_path(__FILE__).'/inc/spotlight-popularposts-class.php');
 
-// Register Widget
-function register_spotlightpopularposts_widget(){
+Class Spotlight{
+
+  function __construct()
+  {
+    # code...
+    require_once(plugin_dir_path(__FILE__).'/inc/spotlight-popularposts-class.php');
+
+    add_action('widgets_init', array($this,'popularposts_widget'));
+
+
+  }
+
+  function popularposts_widget()
+  {
+    # code...
+
     register_widget('Spotlight_PopularPosts_Widget');
-  }
-  // Hook in function
-add_action('widgets_init', 'register_spotlightpopularposts_widget');
 
-
-// to defer parsing of JS
-
-function spotlight_defer_parsing_of_js ( $url ) {
-
-    if ( FALSE === strpos( $url, '.js' ) ) return $url;
-    if ( strpos( $url, 'jquery.js' ) ) return $url;
-    return "$url' defer ";
 
   }
 
-  add_filter( 'clean_url', 'defer_parsing_of_js', 11, 1 );
+
+}
 
 
 
-//  activation
-// require_once plugin_dir_path( __FILE__ ) . 'inc/dragonoid-activation.php';
+if ( class_exists('Spotlight')) {
+  # code...
 
-// deactivation
-// require_once plugin_dir_path( __FILE__ ) . 'inc/dragonoid-deactivation.php';
+  $myspotlight = new Spotlight();
+
+}
