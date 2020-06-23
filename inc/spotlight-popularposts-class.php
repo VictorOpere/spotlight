@@ -46,22 +46,26 @@ class Spotlight_PopularPosts_Widget extends WP_Widget {
 		
         <div class="post-entry-sidebar">
 		<ul>
-			<?php
-				global $wpdb;
-    
-				$posts = $wpdb->get_results("SELECT comment_count, ID, post_title, post_date FROM $wpdb->posts WHERE  post_type='post' AND post_status='publish' ORDER BY comment_count DESC LIMIT 0, $postscount");
-				
-				foreach ($posts as $post) {
-					setup_postdata($post);
-					$id = $post->ID;
-					$title = $post->post_title;
-                    $count = $post->comment_count;
-                    $date = $post->post_date;
-                    $newdate = date("d-m-Y", strtotime($date));
-					
-					echo '<li><a href="' . get_permalink($id) . '"><img src="'.get_the_post_thumbnail_url($id).'" class="mr-4"><div class="text"><h4>' . $title . '</h4><div class="post-meta"><span class="mr-2">'.$newdate.' </span> &bullet;<span class="ml-2"><span class="fa fa-comments"></span> '. $count .'</span></div></div></a></li>';
-				}
-			?>
+		<?php
+                $args = array( 'numberposts' => $postscount, 'order'=> 'DESC', 'orderby' => 'date' );
+                $postslist = get_posts( $args );
+                foreach ($postslist as $post) :  setup_postdata($post); ?> 
+
+				   <li>
+                    <a href="">
+                      <img src="images/img_2.jpg" alt="Image placeholder" class="mr-4">
+                      <div class="text">
+                        <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                        <div class="post-meta">
+                          <span class="mr-2">March 15, 2018 </span> &bullet;
+                          <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+
+        <?php endforeach; ?>
+
 		</ul>
         </div>
 		
